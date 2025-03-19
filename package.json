@@ -1,0 +1,30 @@
+{
+  "name": "win-audio-manager-server",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "pkg . --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --out-path dist",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "sameerbk201",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "morgan": "^1.10.0",
+    "sanitize-html": "^2.14.0",
+    "win-audio-manager": "^0.0.1"
+  },
+  "bin": "src/index.js",
+  "pkg": {
+    "scripts": [
+      "src/index.js"
+    ],
+    "assets": [
+      "src/app-config.json"
+    ]
+  }
+}

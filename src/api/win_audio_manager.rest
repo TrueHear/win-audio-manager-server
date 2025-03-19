@@ -1,0 +1,31 @@
+### Set the server IP (change if needed)
+@ip = http://localhost:3333
+
+### 1️⃣ Test API - GET
+GET {{ip}}/api/test
+Accept: application/json
+
+### 2️⃣ Test API - POST (Validation Example)
+POST {{ip}}/api/test
+Content-Type: application/json
+
+{
+    "name": "Sample Test",
+    "value": 42
+}
+
+### 3️⃣ List All Audio Devices
+GET {{ip}}/api/audio/v1/list
+Accept: application/json
+
+### 4️⃣ Get Default Playback Device
+GET {{ip}}/api/audio/v1/default
+Accept: application/json
+
+### 5️⃣ Set Default Playback Device (Index: 1)
+POST {{ip}}/api/audio/v1/set
+Content-Type: application/json
+
+{
+    "deviceIndex":"1"
+}
