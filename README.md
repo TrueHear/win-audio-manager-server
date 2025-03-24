@@ -20,7 +20,7 @@ It can be used **locally as a Node.js server** or **built as an executable** for
 ### **1️⃣ Clone the Repository**  
 
 ```bash
-git clone https://github.com/sameerbk201/win-audio-manager-server.git
+git clone https://github.com/truehear/win-audio-manager-server.git
 cd win-audio-manager-server
 ```
 
@@ -36,7 +36,38 @@ npm install
 npm start
 ```
 
-The API will be running at **`http://localhost:3000`**.
+When starting the app, you will be prompted:
+
+```text
+Do you want to manually configure IP and Port? (y/N):
+```
+
+- If you choose `Y`, you'll be able to manually enter IP and Port.
+- If the values are **invalid or empty**, defaults will be used.
+- If you choose `N` or press enter, it will load defaults from `src/app-config.json`.
+
+The API will be running at the configured address, e.g., **`http://127.0.0.1:8009`**.
+
+---
+
+## **📌 Configuration**
+
+All configurable values like IP and PORT can be edited in:
+
+```bash
+/src/app-config.json
+```
+
+Example:
+
+```json
+{
+  "IP": "127.0.0.1",
+  "PORT": 8009
+}
+```
+
+There’s **no need for a `.env` file** — all configuration is handled through this JSON file when running as a standalone executable.
 
 ---
 
@@ -55,7 +86,7 @@ The API will be running at **`http://localhost:3000`**.
 ### **🔹 List All Audio Devices**
 
 ```http
-GET http://localhost:3000/api/audio/list
+GET http://127.0.0.1:8009/api/audio/list
 ```
 
 #### ✅ **Response**
@@ -75,7 +106,7 @@ GET http://localhost:3000/api/audio/list
 ### **🔹 Get Default Playback Device**
 
 ```http
-GET http://localhost:3000/api/audio/default
+GET http://127.0.0.1:8009/api/audio/default
 ```
 
 #### ✅ **Response**
@@ -91,7 +122,7 @@ GET http://localhost:3000/api/audio/default
 ### **🔹 Set a New Default Playback Device**
 
 ```http
-POST http://localhost:3000/api/audio/set
+POST http://127.0.0.1:8009/api/audio/set
 Content-Type: application/json
 
 {
@@ -143,33 +174,20 @@ dist/win-audio-manager-server-win-x64.exe
 ./dist/win-audio-manager-server-macos-x64
 ```
 
-After running the executable, the API will be available at **`http://localhost:3000`**.
+Upon launch, you'll be prompted to manually configure IP and Port or use defaults.
 
 ---
 
-## **📌 Environment Configuration**
+## **📌 Error Handling**
 
-By default, the API runs on **port 3000**.  
-To change the port, create a `.env` file:
-
-```bash
-PORT=5000
-```
-
-Then start the server:
-
-```bash
-npm start
-```
-
-Now the API will be available at **`http://localhost:5000`**.
+If an error occurs during launch or runtime, the application will display an error message and wait for you to **press Enter before exiting**. This is helpful when running it as an executable so the window doesn't close abruptly.
 
 ---
 
 ## **📌 Logging & Debugging**
 
-This server uses **morgan** for logging requests.  
-To see logs, start the server in **verbose mode**:
+This server uses **morgan** for logging HTTP requests.  
+To enable verbose logging, start the server with debugging:
 
 ```bash
 DEBUG=express:* npm start
@@ -196,5 +214,3 @@ npm uninstall -g win-audio-manager-server
 ## **📌 Credits & License**
 
 🔹 Built by **Sameer Karn** (@sameerbk201)  
-🔹 Uses [`win-audio-manager`](https://www.npmjs.com/package/win-audio-manager) for audio management  
-🔹 Licensed under **ISC**  
