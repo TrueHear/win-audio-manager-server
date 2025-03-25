@@ -16,11 +16,16 @@
     "express-validator": "^7.2.1",
     "morgan": "^1.10.0",
     "sanitize-html": "^2.14.0",
-    "win-audio-manager": "^0.0.1"
+    "win-audio-manager": "^0.0.1",
+    "yargs": "^17.7.2"
   },
   "bin": "src/index.js",
   "pkg": {
-    "scripts": ["src/**/*.js"],
-    "assets": ["src/**/*.json"]
+    "scripts": [
+      "src/**/*.js"
+    ],
+    "assets": [
+      "src/**/*.json"
+    ]
   }
 }
