@@ -1,4 +1,4 @@
-const { listAudioDevices, getDefaultPlaybackDevice, setAudioDevice } = require("win-audio-manager");
+const { listAudioDevices, getDefaultPlaybackDevice, setAudioDevice, setAudioDeviceById } = require("win-audio-manager");
 const { validationResult } = require("express-validator");
 const AppError = require("../utils/errors/AppError");
 
@@ -119,6 +119,47 @@ class WinAudioManagerController {
             return next(new AppError(`Error setting default playback device: ${error.message}`, 500));
         }
     }
+
+    /**
+     * Set a new default playback device by device ID.
+     * 
+     * @method
+     * @param {Object} req - Express request object.
+     * @param {Object} res - Express response object.
+     * @returns {Promise<void>} Sends a response confirming the change.
+     * 
+     * @example
+     * // Request body:
+     * { "deviceId": "{0.0.0.00000000}.{631335a3-b87f-4389-bd28-69c53fedca77}" }
+     */
+    static async setDefaultDeviceById(req, res, next) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    status: false,
+                    message: "Validation failed",
+                    errors: errors.array(),
+                });
+            }
+
+            const { deviceId } = req.body;
+            if (typeof deviceId !== "string" || deviceId.trim() === "") {
+                throw new AppError("Invalid device ID provided.", 400);
+            }
+
+            await setAudioDeviceById(deviceId.trim());
+
+            return res.status(200).json({
+                status: true,
+                message: "Default playback device set successfully by ID",
+                data: { ID: deviceId },
+            });
+        } catch (error) {
+            return next(new AppError(`Error setting default playback device by ID: ${error.message}`, 500));
+        }
+    }
+
 }
 
 module.exports = WinAudioManagerController;

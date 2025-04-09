@@ -31,4 +31,20 @@ router.post(
     WinAudioManagerController.setDefaultDevice
 );
 
+/**
+ * POST /api/audio/v1/set-by-id - Set a new default playback device by device ID
+ */
+router.post(
+    "/set-by-id",
+    [
+        body("deviceId")
+            .notEmpty()
+            .withMessage("Device ID is required")
+            .isString()
+            .withMessage("Device ID must be a string"),
+    ],
+    WinAudioManagerController.setDefaultDeviceById
+);
+
+
 module.exports = router;

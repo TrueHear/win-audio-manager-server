@@ -15,8 +15,8 @@
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "morgan": "^1.10.0",
-    "sanitize-html": "^2.14.0",
-    "win-audio-manager": "^0.0.1",
+    "sanitize-html": "^2.15.0",
+    "win-audio-manager": "^0.0.2",
     "yargs": "^17.7.2"
   },
   "bin": "src/index.js",

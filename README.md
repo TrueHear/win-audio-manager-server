@@ -73,11 +73,12 @@ There’s **no need for a `.env` file** — all configuration is handled through
 
 ## **📌 API Endpoints**
 
-| **Method** | **Endpoint** | **Description** |
-|-----------|------------|----------------|
-| `GET` | `/api/audio/v1/list` | List all available audio devices |
-| `GET` | `/api/audio/v1/default` | Get the default playback device |
-| `POST` | `/api/audio/v1/set` | Set a new default playback device |
+| **Method** | **Endpoint**                  | **Description**                                     |
+|------------|-------------------------------|-----------------------------------------------------|
+| `GET`      | `/api/audio/v1/list`          | List all available audio devices                    |
+| `GET`      | `/api/audio/v1/default`       | Get the default playback device                     |
+| `POST`     | `/api/audio/v1/set`           | Set a new default playback device by index          |
+| `POST`     | `/api/audio/v1/set-by-id`     | Set a new default playback device by device ID      |
 
 ---
 
@@ -86,7 +87,7 @@ There’s **no need for a `.env` file** — all configuration is handled through
 ### **🔹 List All Audio Devices**
 
 ```http
-GET http://127.0.0.1:8009/api/audio/list
+GET http://127.0.0.1:8009/api/audio/v1/list
 ```
 
 #### ✅ **Response**
@@ -106,7 +107,7 @@ GET http://127.0.0.1:8009/api/audio/list
 ### **🔹 Get Default Playback Device**
 
 ```http
-GET http://127.0.0.1:8009/api/audio/default
+GET http://127.0.0.1:8009/api/audio/v1/default
 ```
 
 #### ✅ **Response**
@@ -122,7 +123,7 @@ GET http://127.0.0.1:8009/api/audio/default
 ### **🔹 Set a New Default Playback Device**
 
 ```http
-POST http://127.0.0.1:8009/api/audio/set
+POST http://127.0.0.1:8009/api/audio/v1/set
 Content-Type: application/json
 
 {
@@ -137,6 +138,29 @@ Content-Type: application/json
   "status": true,
   "message": "Default playback device set successfully",
   "data": { "Index": 1 }
+}
+```
+
+### **🔹 Set a New Default Playback Device by ID**
+
+```http
+POST http://127.0.0.1:8009/api/audio/v1/set-by-id
+Content-Type: application/json
+
+{
+  "deviceId": "{0.0.0.00000000}.{631335a3-b87f-4389-bd28-69c53fedca77}"
+}
+```
+
+#### ✅ **Example Successful Response**
+
+```json
+{
+  "status": true,
+  "message": "Default playback device set successfully by ID",
+  "data": {
+    "ID": "{0.0.0.00000000}.{631335a3-b87f-4389-bd28-69c53fedca77}"
+  }
 }
 ```
 
